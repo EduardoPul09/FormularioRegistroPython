@@ -1,0 +1,14 @@
+Nombre: Eduardo
+Apellidos: Pulido
+Edad: 20
+Estatura: 172
+Telefono: 94567123
+Genero: Hombre
+
+Nombre: 
+Apellidos: 
+Edad: 
+Estatura: 
+Telefono: 
+Genero: 
+

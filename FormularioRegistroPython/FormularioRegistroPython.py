@@ -7,7 +7,7 @@ from tkinter import messagebox
 
 
 
-def limpiar():
+def limpiar_campos():
     tbNombres.delete(0,tk.END)
     tbApellidos.delete(0,tk.END)
     tbEdad.delete(0,tk.END)
@@ -16,12 +16,12 @@ def limpiar():
     var_genero.set(0)
     
 def borrar_fun():
-    limpiar()
+    limpiar_campos()
 
 
 def guardar():
-    nombres=tbNombres.get()
-    apellidos=tbApellidos.get()
+    nombres =tbNombres.get()
+    apellidos =tbApellidos.get()
     edad = tbEdad.get()
     estatura = tbEstatura.get()
     telefono = tbTelefono.get()
@@ -30,7 +30,7 @@ def guardar():
         genero = "Hombre"
     elif var_genero.get()==2:
         genero = "Mujer"
-    datos = "Nombre: "+nombres+"\nApellidos: "+apellidos+"\nEdad: "+edad+ "\nEstatura: "+estatura+"\nTelefono: "+telefono+"\nGenero: "+genero
+    datos = "Nombre: "+ nombres + "\nApellidos: " + apellidos + "\nEdad: " + edad + "\nEstatura: " + estatura + "\nTelefono: " + telefono + "\nGenero: " + genero
     with open("datosP.txt","a") as file:
         file.write(datos + "\n\n")
     messagebox.showinfo("Datos "+"Datos guardados: \n\n", datos)
@@ -63,14 +63,14 @@ tbEstatura = tk.Entry()
 tbEstatura.pack()
 lbGenero = tk.Label(ventana, text = "Genero ")
 lbGenero.pack()
-rbHombre = tk.RadioButton(ventana, text = "Hombre", variable=var_genero, value=1)
+rbHombre = tk.Radiobutton(ventana, text = "Hombre", variable=var_genero, value=1)
 rbHombre.pack()
-rbMujer = tk.RadioButton(ventana, text = "Mujer", variable=var_genero, value=2)
+rbMujer = tk.Radiobutton(ventana, text = "Mujer", variable=var_genero, value=2)
 rbMujer.pack()
 bBorrar = tk.Button(ventana, text = "Borrar", command=borrar_fun)
 bBorrar.pack()
 bGuardar = tk.Button(ventana, text = "Guardar", command=guardar)
 bGuardar.pack()
 
-ventana.mainloop
+ventana.mainloop()
 

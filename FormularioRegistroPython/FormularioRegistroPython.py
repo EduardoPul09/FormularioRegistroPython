@@ -3,6 +3,7 @@
 
 
 import tkinter as tk
+import re
 from tkinter import messagebox
 
 
@@ -15,6 +16,28 @@ def limpiar_campos():
     tbTelefono.delete(0,tk.END)
     var_genero.set(0)
     
+
+def isValidInt(valo):
+    try:
+        int(valo)
+        return True
+    except ValueError:
+        return False
+    
+def isValidFloat(valo):
+    try:
+        int(valo)
+        return True
+    except ValueError:
+        return False
+    
+def isValidTel(valo):
+    return valo.isdigit() and len(valo) == 10 
+
+def isValidText(valo):
+    return bool(re.match("^[a-zA-Z\s]+$", valo))
+
+
 def borrar_fun():
     limpiar_campos()
 
@@ -30,10 +53,18 @@ def guardar():
         genero = "Hombre"
     elif var_genero.get()==2:
         genero = "Mujer"
-    datos = "Nombre: "+ nombres + "\nApellidos: " + apellidos + "\nEdad: " + edad + "\nEstatura: " + estatura + "\nTelefono: " + telefono + "\nGenero: " + genero
-    with open("datosP.txt","a") as file:
-        file.write(datos + "\n\n")
-    messagebox.showinfo("Datos "+"Datos guardados: \n\n", datos)
+        
+    if (isValidInt(edad) and isValidFloat(estatura) and isValidTel(telefono) and isValidText(nombres) and isValidText(apellidos)):
+        
+        datos = "Nombre: "+ nombres + "\nApellidos: " + apellidos + "\nEdad: " + edad + "\nEstatura: " + estatura + "\nTelefono: " + telefono + "\nGenero: " + genero
+        with open("datosP.txt","a") as file:
+            file.write(datos + "\n\n")
+        messagebox.showinfo("Datos "+"Datos guardados: \n\n", datos)
+    else:
+        messagebox.showerror("Error", "No se pudieron guardar los datos")
+    borrar_fun();
+
+
 
 ventana = tk.Tk()
 ventana.geometry("520x500")
@@ -67,10 +98,13 @@ rbHombre = tk.Radiobutton(ventana, text = "Hombre", variable=var_genero, value=1
 rbHombre.pack()
 rbMujer = tk.Radiobutton(ventana, text = "Mujer", variable=var_genero, value=2)
 rbMujer.pack()
+
 bBorrar = tk.Button(ventana, text = "Borrar", command=borrar_fun)
 bBorrar.pack()
 bGuardar = tk.Button(ventana, text = "Guardar", command=guardar)
 bGuardar.pack()
+
+
 
 ventana.mainloop()
 
